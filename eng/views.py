@@ -6,6 +6,10 @@ from . serializers import AndelaEngineerSerializer, PartnerEngineerSerializer
 from .models import AndelaEngineer, PartnerEngineer
 
 
+class IndexViewSet(viewsets.ModelViewSet):
+    queryset = AndelaEngineer.objects.all()
+    serializer_class = AndelaEngineerSerializer
+
 class CreateEngView(APIView):
     def post(self, request):
         serializer = AndelaEngineerSerializer(data=request.data)

@@ -15,24 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from rest_framework.urlpatterns import format_suffix_patterns
 
 import eng.views
-# router = DefaultRouter()
-# router.register(r'engs', eng.views.Index, basename='user')
+router = DefaultRouter()
+router.register(r'endela_engineer', eng.views.IndexViewSet, basename='user')
 
 engurls = [
-    path('eng/', eng.views.CreateEngView.as_view()),
-    path('eng/<int:pk>/', eng.views.GetEngView.as_view()),
-    path('partner/', eng.views.CreatePartnerView.as_view()),
-    path('partner/<int:pk>/', eng.views.GetPartnerView.as_view())
+    # path('eng/', eng.views.CreateEngView.as_view()),
+    # path('eng/<int:pk>/', eng.views.GetEngView.as_view()),
+    # path('partner/', eng.views.CreatePartnerView.as_view()),
+    # path('partner/<int:pk>/', eng.views.GetPartnerView.as_view()),
+    path('', include(router.urls))
 
 ]
 
-urlpatterns = format_suffix_patterns(engurls)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(urlpatterns))
+    path('', include(router.urls))
 ]
