@@ -17,23 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from rest_framework.urlpatterns import format_suffix_patterns
 
 import eng.views
-# router = DefaultRouter()
-# router.register(r'engs', eng.views.Index, basename='user')
+router = DefaultRouter()
+router.register(r'eng', eng.views.IndexViewSet, basename='eng')
+router.register(r'partner', eng.views.PartnerViewSet, basename='partner')
 
-engurls = [
-    path('eng/', eng.views.CreateEngView.as_view()),
-    path('eng/<int:pk>/', eng.views.GetEngView.as_view()),
-    path('partner/', eng.views.CreatePartnerView.as_view()),
-    path('partner/<int:pk>/', eng.views.GetPartnerView.as_view())
+urlspaths = [
+    path('', include(router.urls))
 
 ]
 
-urlpatterns = format_suffix_patterns(engurls)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(urlpatterns))
+    path('', include(router.urls))
 ]
